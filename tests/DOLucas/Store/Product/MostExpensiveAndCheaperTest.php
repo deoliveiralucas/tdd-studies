@@ -31,4 +31,17 @@ class MostExpensiveAndCheaperTest extends PHPUnit
         $mostExpensive = $mostExpensiveAndCheaper->getMostExpensive()->getName();
         $this->assertEquals("Freezer", $mostExpensive);
     }
+
+    public function testOnlyOneProduct()
+    {
+        $cart = new Cart();
+
+        $cart->add(new Product("Freezer", 450.00));
+
+        $mostExpensiveAndCheaper = new MostExpensiveAndCheaper();
+        $mostExpensiveAndCheaper->find($cart);
+
+        $mostExpensive = $mostExpensiveAndCheaper->getMostExpensive()->getName();
+        $this->assertEquals("Freezer", $mostExpensive);
+    }
 }
