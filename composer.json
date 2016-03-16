@@ -4,9 +4,9 @@
   },
   "autoload": {
     "psr-4": {
-      "DOLucas\\Store\\": [
-        "src/DOLucas/Store",
-        "tests/DOLucas/Store"
+      "DOLucas\\": [
+        "src/DOLucas",
+        "tests/DOLucas"
       ]
     }
   }
