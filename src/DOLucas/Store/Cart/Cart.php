@@ -27,14 +27,14 @@ class Cart
 
     public function mostExpensive()
     {
-        if (count($this->getItens()) === 0) {
+        if (count($this->getProducts()) === 0) {
             return 0;
         }
 
-        $mostExpensive = $this->getProducts()[0]->getValue();
+        $mostExpensive = $this->getProducts()[0]->getTotalValue();
         foreach ($this->getProducts() as $product) {
-            if ($mostExpensive < $product->getValue()) {
-                $mostExpensive = $product->getValue();
+            if ($mostExpensive < $product->getTotalValue()) {
+                $mostExpensive = $product->getTotalValue();
             }
         }
 

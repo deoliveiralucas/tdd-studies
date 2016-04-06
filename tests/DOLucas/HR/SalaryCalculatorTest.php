@@ -13,33 +13,33 @@ use DOLucas\Store\HR\TableRoles;
 class SalaryCalculatorTest extends PHPUnit
 {
 
-	public function testCalculatioSalaryDevelopersWithSalaryUnderTheLimit()
-	{
-		$calculator = new SalaryCalculator();
-		$developer = new Employee("Andre", 1500.0, TableRoles::DEVELOPER);
+    public function testCalculatioSalaryDevelopersWithSalaryUnderTheLimit()
+    {
+        $calculator = new SalaryCalculator();
+        $developer = new Employee("Andre", 1500.0, TableRoles::DEVELOPER);
 
-		$salary = $calculator->calculateSalary($developer);
+        $salary = $calculator->calculateSalary($developer);
 
-		$this->assertEquals(1500.0 * 0.9, $salary, null, 0.00001);
-	}
+        $this->assertEquals(1500.0 * 0.9, $salary, null, 0.00001);
+    }
 
-	public function testCalculatioSalaryDevelopersWithSalaryAboveTheLimit()
-	{
-		$calculator = new SalaryCalculator();
-		$developer = new Employee("Andre", 4000.0, TableRoles::DEVELOPER);
+    public function testCalculatioSalaryDevelopersWithSalaryAboveTheLimit()
+    {
+        $calculator = new SalaryCalculator();
+        $developer = new Employee("Andre", 4000.0, TableRoles::DEVELOPER);
 
-		$salary = $calculator->calculateSalary($developer);
+        $salary = $calculator->calculateSalary($developer);
 
-		$this->assertEquals(4000.0 * 0.8, $salary, null, 0.00001);
-	}
+        $this->assertEquals(4000.0 * 0.8, $salary, null, 0.00001);
+    }
 
-	public function testCalculatioSalaryDBAsWithSalaryUnderTheLimit()
-	{
-		$calculator = new SalaryCalculator();
-		$dba = new Employee("Andre", 500.0, TableRoles::DBA);
+    public function testCalculatioSalaryDBAsWithSalaryUnderTheLimit()
+    {
+        $calculator = new SalaryCalculator();
+        $dba = new Employee("Andre", 500.0, TableRoles::DBA);
 
-		$salary = $calculator->calculateSalary($dba);
+        $salary = $calculator->calculateSalary($dba);
 
-		$this->assertEquals(500.0 * 0.85, $salary, null, 0.00001);
-	}
+        $this->assertEquals(500.0 * 0.85, $salary, null, 0.00001);
+    }
 }
