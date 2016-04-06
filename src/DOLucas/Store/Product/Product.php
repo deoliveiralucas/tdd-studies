@@ -6,12 +6,14 @@ class Product
 {
 
     private $name;
-    private $value;
+    private $unitaryValue;
+    private $quantity;
 
-    public function __construct($name, $value)
+    public function __construct($name, $unitaryValue, $quantity)
     {
         $this->name = $name;
-        $this->value = $value;
+        $this->unitaryValue = $unitaryValue;
+        $this->quantity = $quantity;
     }
 
     public function getName()
@@ -19,8 +21,18 @@ class Product
         return $this->name;
     }
 
-    public function getValue()
+    public function getUnitaryValue()
     {
-        return $this->value;
+        return $this->unitaryValue;
+    }
+
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    public function getTotalValue()
+    {
+        return $this->unitaryValue * $this->quantity;
     }
 }
