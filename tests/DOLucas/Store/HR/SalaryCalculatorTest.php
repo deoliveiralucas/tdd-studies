@@ -13,7 +13,7 @@ use DOLucas\Store\HR\TableRoles;
 class SalaryCalculatorTest extends PHPUnit
 {
 
-    public function testCalculatioSalaryDevelopersWithSalaryUnderTheLimit()
+    public function testCalculationSalaryDevelopersWithSalaryUnderTheLimit()
     {
         $calculator = new SalaryCalculator();
         $developer = new Employee("Andre", 1500.0, TableRoles::DEVELOPER);
@@ -23,7 +23,7 @@ class SalaryCalculatorTest extends PHPUnit
         $this->assertEquals(1500.0 * 0.9, $salary, null, 0.00001);
     }
 
-    public function testCalculatioSalaryDevelopersWithSalaryAboveTheLimit()
+    public function testCalculationSalaryDevelopersWithSalaryAboveTheLimit()
     {
         $calculator = new SalaryCalculator();
         $developer = new Employee("Andre", 4000.0, TableRoles::DEVELOPER);
@@ -33,7 +33,7 @@ class SalaryCalculatorTest extends PHPUnit
         $this->assertEquals(4000.0 * 0.8, $salary, null, 0.00001);
     }
 
-    public function testCalculatioSalaryDBAsWithSalaryUnderTheLimit()
+    public function testCalculationSalaryDBAsWithSalaryUnderTheLimit()
     {
         $calculator = new SalaryCalculator();
         $dba = new Employee("Andre", 500.0, TableRoles::DBA);
