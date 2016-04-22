@@ -10,13 +10,11 @@ use \DateTime;
 class InvoiceGenerator
 {
 
-    private $dataAccess;
-    private $sap;
+    private $actions;
 
-    public function __construct(InvoiceDataAccess $dataAccess, SAP $sap)
+    public function __construct($actions)
     {
-        $this->dataAccess = $dataAccess;
-        $this->sap = $sap;
+        $this->actions = $actions;
     }
 
     public function generate(Order $order)
@@ -27,11 +25,10 @@ class InvoiceGenerator
             new DateTime()
         );
 
-        if ($this->dataAccess->persist($invoice) && 
-            $this->sap->send($invoice)) {
-            return $invoice;
+        foreach ($this->actions as $action) {
+            $action->execute($invoice);
         }
 
-        return null;
+        return $invoice;
     }
 }

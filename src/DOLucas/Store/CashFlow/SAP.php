@@ -4,10 +4,10 @@ namespace DOLucas\Store\CashFlow;
 
 use DOLucas\Store\CashFlow\Invoice;
 
-class SAP
+class SAP implements IActionAfterGenerateInvoice
 {
 
-    public function send(Invoice $invoice)
+    public function execute(Invoice $invoice)
     {
         // send Invoice to SAP
     }
