@@ -5,6 +5,7 @@ namespace DOLucas\Store\CashFlow;
 use DOLucas\Store\Test\TestCase;
 use DOLucas\Store\CashFlow\InvoiceGenerator;
 use DOLucas\Store\CashFlow\Order;
+use DOLucas\Examples\ClockSystem;
 use Mockery;
 
 class InvoiceGeneratorTest extends TestCase
@@ -12,7 +13,10 @@ class InvoiceGeneratorTest extends TestCase
 
     public function testShouldGenerateInvoiceWithTaxValueDiscounted()
     {
-        $generator = new InvoiceGenerator([]);
+        $table = Mockery::mock('DOLucas\Store\Taxes\TableInterface');
+        $table->shouldReceive('toValue')->with(1000.0)->andReturn(0.2);
+
+        $generator = new InvoiceGenerator([], new ClockSystem(), $table);
         $order = new Order('Lucas', 1000, 1);
 
         $invoice = $generator->generate($order);
@@ -28,7 +32,10 @@ class InvoiceGeneratorTest extends TestCase
         $sap = Mockery::mock('DOLucas\Store\CashFlow\SAP');
         $sap->shouldReceive('execute')->andReturn(true);
 
-        $generator = new InvoiceGenerator([$dataAccess, $sap]);
+        $table = Mockery::mock('DOLucas\Store\Taxes\TableInterface');
+        $table->shouldReceive('toValue')->with(1000.0)->andReturn(0.2);
+
+        $generator = new InvoiceGenerator([$dataAccess, $sap], new ClockSystem(), $table);
         $order = new Order('Lucas', 1000, 1);
 
         $invoice = $generator->generate($order);
@@ -37,5 +44,18 @@ class InvoiceGeneratorTest extends TestCase
         $this->assertTrue($sap->execute($invoice));
         $this->assertNotNull($invoice);
         $this->assertInstanceOf('DOLucas\Store\CashFlow\Invoice', $invoice);
+    }
+
+    public function testShouldFindTableToCalculateValue()
+    {
+        $table = Mockery::mock('DOLucas\Store\Taxes\TableInterface');
+        $table->shouldReceive('toValue')->with(1000.0)->andReturn(0.2);
+
+        $generator = new InvoiceGenerator([], new ClockSystem(), $table);
+        $order = new Order('Lucas', 1000.0, 1);
+
+        $invoice = $generator->generate($order);
+
+        $this->assertEquals(1000 * 0.8, $invoice->getValue(), null, 0.00001);
     }
 }

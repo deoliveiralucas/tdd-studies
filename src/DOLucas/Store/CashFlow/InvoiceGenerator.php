@@ -3,26 +3,32 @@
 namespace DOLucas\Store\CashFlow;
 
 use DOLucas\Store\CashFlow\Order;
-use DOLucas\Store\CashFlow\InvoiceDataAccess;
-use DOLucas\Store\CashFlow\SAP;
-use \DateTime;
+use DOLucas\Examples\ClockInterface;
+use DOLucas\Store\Taxes\TableInterface;
 
 class InvoiceGenerator
 {
 
     private $actions;
+    private $clock;
+    private $table;
 
-    public function __construct($actions)
+    public function __construct($actions, ClockInterface $clock, TableInterface $table)
     {
         $this->actions = $actions;
+        $this->clock = $clock;
+        $this->table = $table;
     }
 
     public function generate(Order $order)
     {
+        $tableValue = $this->table->toValue($order->getTotalValue());
+        $totalValue = $order->getTotalValue() - ($order->getTotalValue() * $tableValue);
+
         $invoice = new Invoice(
             $order->getClient(),
-            $order->getTotalValue() * 0.94,
-            new DateTime()
+            $totalValue,
+            $this->clock->today()
         );
 
         foreach ($this->actions as $action) {
