@@ -49,5 +49,4 @@ class ConvertRomanNumeralsTest extends PHPUnit
         $number = $roman->convert("XXIV");
         $this->assertEquals(24, $number);
     }
-
 }
