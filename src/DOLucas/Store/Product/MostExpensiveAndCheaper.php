@@ -6,6 +6,7 @@ use DOLucas\Store\Cart\Cart;
 
 class MostExpensiveAndCheaper
 {
+    
     private $cheaper;
     private $mostExpensive;
 

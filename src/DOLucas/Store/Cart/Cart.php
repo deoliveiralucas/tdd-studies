@@ -7,6 +7,7 @@ use ArrayObject;
 
 class Cart
 {
+    
     private $products;
 
     public function __construct()
